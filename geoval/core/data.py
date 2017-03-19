@@ -1926,7 +1926,6 @@ class GeoData(object):
             else:
                 res = self.data.copy()  # no temporal averaging
         else:
-            print(self.data.ndim)
             raise ValueError(
                 'Temporal mean can not be calculated as dimensions do not match!')
         print(type(res))

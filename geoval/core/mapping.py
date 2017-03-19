@@ -312,8 +312,6 @@ class MapPlotGeneric(object):
         if plot_data_field:
             xm = self.x.timmean(return_object=False)
             Z = xm
-            print(Z)
-            print(Z.shape)
             lon = self.x.lon
             lat = self.x.lat
 
