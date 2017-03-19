@@ -223,7 +223,7 @@ class MapPlotGeneric(object):
                 'No projection properties are given! Please modify or choose a different backend!')
 
         the_map = Basemap(ax=self.pax, **proj_prop)
-        xm = self.x.timmean()
+        xm = self.x.timmean(return_object=False)
 
         Z = xm
         lon = self.x.lon
@@ -310,8 +310,10 @@ class MapPlotGeneric(object):
             plot_data_field = False
 
         if plot_data_field:
-            xm = self.x.timmean()
+            xm = self.x.timmean(return_object=False)
             Z = xm
+            print(Z)
+            print(Z.shape)
             lon = self.x.lon
             lat = self.x.lat
 
@@ -382,12 +384,13 @@ class MapPlotGeneric(object):
         else:
             self.pax.set_global()  # ensure global plot
         self.pax.coastlines()
-
+        import traceback
         if plot_data_field:
             try:
                 self.im = self.pax.pcolormesh(
                     lon, lat, Z, transform=ccrs.PlateCarree(), **kwargs)
             except:
+                print(traceback.format_exc())
                 print('*** WARNING: something did not work with pcolormesh plotting in mapping.py')
                 self.im = None
         else:
