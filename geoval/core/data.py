@@ -1920,12 +1920,16 @@ class GeoData(object):
         if self.data.ndim == 3:
             res = self.data.mean(axis=0)
         elif self.data.ndim == 2:
-            res = self.data.copy()  # no temporal averaging
+            if isinstance(self.data, GeoData):
+                print("FIND INSTANCE OF GEODATA IN THE DATA ARGUMENT, PLEASE FIX IT!")
+                res = self.data.data.copy()
+            else:
+                res = self.data.copy()  # no temporal averaging
         else:
             print(self.data.ndim)
             raise ValueError(
                 'Temporal mean can not be calculated as dimensions do not match!')
-
+        print(type(res))
         if return_object:
             tmp = self.copy()
             tmp.data = res
